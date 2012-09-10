@@ -10,7 +10,7 @@
 # Project:   Raspberry Pi Stuff
 # Copyright: Released to the Public Domain
 # Status:    THIS IS EXPERIMENTAL USE AT YOUR OWN RISK
-#
+#            THIS IS NOT A WORKING SCRIPT AT THIS TIME!
 # Purpose:
 # This is a simple script which looks at the current disk that is
 # being used and expands the filesystem to almost the max 
@@ -57,3 +57,6 @@ echo "Making changes using fdisk..."
 printf "d\n2\nn\np\n2\n$PART_START\n$PART_END\np\nw\n" | fdisk /dev/mmcblk0
 echo
 echo You need to now reboot to complete the process
+
+# Setup script to complete the process
+# Reboot the system

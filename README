@@ -1,2 +1,50 @@
-Inital Readme file
+####################################################################
+#
+# A Project of TNET Services, Inc
+#
+# Title:     rpi-wiggle
+# Author:    Kevin Reed (Dweeber)
+#            dweeber.dweebs@gmail.com
+# Credits:   jojopi on Raspberry Pi Forum who provided sample code
+#            
+# Project:   Raspberry Pi Stuff
+# Copyright: Released to the Public Domain
+# Status:    THIS IS EXPERIMENTAL USE AT YOUR OWN RISK
+#            THIS IS NOT A WORKING SCRIPT AT THIS TIME!
+#
+####################################################################
+Purpose:
+
+The purpose of this script is to expand the current FS to the full
+size of the SDCard but to make sure that it is small enough so that
+if you make an image of it (like using Win32 Disk Imager), you can
+be assured that it will fit on a new SDCard of the same size.
+
+The expand function included in the raspi-config uses the full 
+extent of the SDCard which many times makes an image that cannot
+be loaded on another SDcard even if it is the same size.  Many times
+it is simply 1 or 2 blocks too large.
+
+Usage:
+
+As root, you run rpi-wiggle and it calculates the max size of the
+current SDCard by GB and then backs off a bit to ensure that it
+will load on most SDcards of that same size. 
+
+It then using fdisk to setup the paramenters.
+
+The script then needs to reboot the system and then finish the
+process by doing an additional command. 
+
+When done, you will have used the full SDCard but be a little
+shorter thus allowing an image to be made and successful transfer
+to other like sized SDcards.
+
+####################################################################
+      THIS IS NOT A WORKING SCRIPT AT THIS TIME - DO NOT USE!
+####################################################################
+
+History:
+
+2012-09-09 Setup Repository and basic script
 
