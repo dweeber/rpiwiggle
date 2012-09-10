@@ -1,0 +1,59 @@
+#!/bin/bash
+###################################################################
+# A Project of TNET Services, Inc
+#
+# Title:     rpi-wiggle
+# Author:    Kevin Reed (Dweeber)
+#            dweeber.dweebs@gmail.com
+# Credits:   jojopi on Raspberry Pi Forum who provided sample code
+#            
+# Project:   Raspberry Pi Stuff
+# Copyright: Released to the Public Domain
+# Status:    THIS IS EXPERIMENTAL USE AT YOUR OWN RISK
+#
+# Purpose:
+# This is a simple script which looks at the current disk that is
+# being used and expands the filesystem to almost the max 
+# minus 3 512 blocks.  This is the ensure that the image is
+# smaller than most SDcards of that size
+#
+###################################################################
+# START OF SCRIPT
+###################################################################
+if [ $(id -u) -ne 0 ]; then
+  printf "Script must be run as root. Try 'sudo wiggle'\n"
+  exit 1
+fi
+
+###################################################################
+DISK_SIZE="$(($(sudo blockdev --getsz /dev/mmcblk0)/2048/925))"
+PART_START="$(sudo parted /dev/mmcblk0 -ms unit s p |grep "^2" |cut -f2 -d:)"
+[ "$PART_START" ] || exit 1
+PART_END="$(((DISK_SIZE*925*2048-1)-1536))"
+###################################################################
+# Display some Stuff...
+###################################################################
+echo wiggle - v0.1 2012-09-09
+echo ======================================================
+echo Expand to SDCard Size with some wiggle room
+echo This script will calculate the size of the current
+echo SDcard, reset the size to max with some wiggle room
+echo and then reboot to complete the task.
+echo
+echo This should ONLY be run ONCE!
+echo 
+echo 
+echo Current Disk Info
+fdisk -l /dev/mmcblk0
+echo
+echo ======================================================
+echo
+echo Calculated Info:
+echo " Disk Size  = $DISK_SIZE gb"
+echo " Part Start = $PART_START"
+echo " Part End   = $PART_END"
+echo
+echo "Making changes using fdisk..."
+printf "d\n2\nn\np\n2\n$PART_START\n$PART_END\np\nw\n" | fdisk /dev/mmcblk0
+echo
+echo You need to now reboot to complete the process
