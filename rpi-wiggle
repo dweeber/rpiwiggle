@@ -58,5 +58,9 @@ printf "d\n2\nn\np\n2\n$PART_START\n$PART_END\np\nw\n" | fdisk /dev/mmcblk0
 echo
 echo You need to now reboot to complete the process
 
-# Setup script to complete the process
-# Reboot the system
+# Setup temporary script to complete the process
+
+# Need to reboot, Ask the user to allow for rebooting
+
+# Temp script should then run resize2fs /dev/mmcblk0p2
+# to complete the process as root

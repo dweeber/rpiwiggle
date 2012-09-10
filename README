@@ -34,7 +34,10 @@ will load on most SDcards of that same size.
 It then using fdisk to setup the paramenters.
 
 The script then needs to reboot the system and then finish the
-process by doing an additional command. 
+process by doing the command: resize2fs /dev/mmcblk0p2
+
+The script should then remove the temp script and allow the 
+user to the login prompt.
 
 When done, you will have used the full SDCard but be a little
 shorter thus allowing an image to be made and successful transfer
