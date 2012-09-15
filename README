@@ -32,7 +32,7 @@ As root, you run rpi-wiggle and it calculates the max size of the
 current SDCard by GB and then backs off a bit to ensure that it
 will load on most SDcards of that same size. 
 
-It then using fdisk to setup the paramenters.
+It then using fdisk to setup the parameters.
 
 The script then needs to reboot the system and then finish the
 process by doing the command: resize2fs /dev/mmcblk0p2
@@ -45,11 +45,12 @@ shorter thus allowing an image to be made and successful transfer
 to other like sized SDcards.
 
 ####################################################################
-      THIS IS NOT A WORKING SCRIPT AT THIS TIME - DO NOT USE!
+                  SCRIPT IS IN BETA TESTING NOW
 ####################################################################
 
 HISTORY:
 
+2012-09-14 Released to a few for testing and feedback
 2012-09-14 Added remaining sections of script.  Ready to test
 2012-09-10 Updated Readme file
 2012-09-09 Setup Repository and basic script
@@ -66,4 +67,11 @@ match resize2fs_once Default-Stop values (none)
 
 These errors do not affect the running of the script.  Not sure how 
 to suppress them
+
+WHY WIGGLE?
+
+Expands to the size of the SDcard but has some wiggle room left so 
+that if you make an image, it can be saved to a like sized SDCard 
+without worrying about it fitting.  Couldn't think of anything else
+to call it.
 

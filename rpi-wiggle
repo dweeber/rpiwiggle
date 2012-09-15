@@ -90,7 +90,7 @@ cat <<\EOF > /etc/init.d/resize2fs_once &&
 
 case "$1" in
   start)
-    log_daemon_msg "Starting resize2fs_once, THIS MAY TAKE A FEW MINUTES" && 
+    log_daemon_msg "Starting resize2fs_once, THIS WILL TAKE A FEW MINUTES " && 
     
     # Do our stuff....   
 	resize2fs /dev/mmcblk0p2 &&
