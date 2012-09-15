@@ -13,7 +13,8 @@
 #            THIS IS NOT A WORKING SCRIPT AT THIS TIME!
 #
 ####################################################################
-Purpose:
+
+PURPOSE:
 
 The purpose of this script is to expand the current FS to the full
 size of the SDCard but to make sure that it is small enough so that
@@ -25,7 +26,7 @@ extent of the SDCard which many times makes an image that cannot
 be loaded on another SDcard even if it is the same size.  Many times
 it is simply 1 or 2 blocks too large.
 
-Usage:
+USAGE:
 
 As root, you run rpi-wiggle and it calculates the max size of the
 current SDCard by GB and then backs off a bit to ensure that it
@@ -47,8 +48,22 @@ to other like sized SDcards.
       THIS IS NOT A WORKING SCRIPT AT THIS TIME - DO NOT USE!
 ####################################################################
 
-History:
+HISTORY:
 
+2012-09-14 Added remaining sections of script.  Ready to test
 2012-09-10 Updated Readme file
 2012-09-09 Setup Repository and basic script
+
+KNOWN ISSUES:
+
+When run, the script will output the following errors:
+
+update-rc.d: using dependency based boot sequencing
+update-rc.d: warning: default start runlevel arguments (2 3 4 5) do 
+not match resize2fs_once Default-Start values (2 3 4 5 S)
+update-rc.d: warning: default stop runlevel arguments (0 1 6) do not 
+match resize2fs_once Default-Stop values (none)
+
+These errors do not affect the running of the script.  Not sure how 
+to suppress them
 
