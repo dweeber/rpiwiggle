@@ -5,12 +5,14 @@
 # Title:     rpi-wiggle
 # Author:    Kevin Reed (Dweeber)
 #            dweeber.dweebs@gmail.com
-# Credits:   jojopi on Raspberry Pi Forum who provided sample code
-#            
 # Project:   Raspberry Pi Stuff
-# Copyright: Released to the Public Domain
-# Status:    THIS IS EXPERIMENTAL USE AT YOUR OWN RISK
-#            THIS IS NOT A WORKING SCRIPT AT THIS TIME!
+#
+# Credits:   jojopi on Raspberry Pi Forum who provided sample code
+#            MrEngman on Raspberry Pi Forum for testing
+#            Examples from http://github.com/asb/raspi-config
+#
+# Copyright: Copyright (c) 2012 Kevin Reed <kreed@tnet.com>
+#            https://github.com/dweeber/rpiwiggle
 #
 # Purpose:
 # This is a simple script which looks at the current disk that is
@@ -33,10 +35,10 @@
 # START OF SCRIPT
 ###################################################################
 PROGRAM="rpi-wiggle"
-VERSION="v0.1 2012-09-14"
+VERSION="v1.0 2012-09-15"
 ###################################################################
 if [ $(id -u) -ne 0 ]; then
-  printf "Script must be run as root. Try 'sudo wiggle'\n"
+  printf "Script must be run as root. Try 'sudo ./rpi-wiggle'\n"
   exit 1
 fi
 ###################################################################
@@ -49,14 +51,6 @@ PART_END="$(((DISK_SIZE*925*2048-1)-1024))"
 ###################################################################
 echo $PROGRAM - $VERSION
 echo ======================================================
-echo Expand to SDCard Size with some wiggle room
-echo This script will calculate the size of the current
-echo SDcard, reset the size to max with some wiggle room
-echo and then reboot to complete the task.
-echo
-echo This should ONLY be run ONCE!
-echo 
-echo 
 echo Current Disk Info
 fdisk -l /dev/mmcblk0
 echo
@@ -70,19 +64,17 @@ echo
 echo "Making changes using fdisk..."
 printf "d\n2\nn\np\n2\n$PART_START\n$PART_END\np\nw\n" | fdisk /dev/mmcblk0
 echo
-
-# now set up an init.d script
-# example stolen from raspi-config script
+echo Setting up init.d resize2fs_once script
 
 cat <<\EOF > /etc/init.d/resize2fs_once &&
 #!/bin/sh
 ### BEGIN INIT INFO
-# Provides:          resize2fs_once
+# Provides: resize2fs_once
 # Required-Start:
 # Required-Stop:
-# Default-Start: 2 3 4 5 S
-# Default-Stop:
-# Short-Description: Test for one time run on boot
+# Default-Start: 2 3 4 5
+# Default-Stop: 0 1 6
+# Short-Description: Run resize2fs_once on boot
 # Description:
 ### END INIT INFO
 
@@ -93,8 +85,8 @@ case "$1" in
     log_daemon_msg "Starting resize2fs_once, THIS WILL TAKE A FEW MINUTES " && 
     
     # Do our stuff....   
-	resize2fs /dev/mmcblk0p2 &&
-	
+    resize2fs /dev/mmcblk0p2 &&
+    
     # Okay, not lets remove this script
     rm /etc/init.d/resize2fs_once &&
     update-rc.d resize2fs_once remove &&
@@ -110,6 +102,7 @@ EOF
   update-rc.d resize2fs_once defaults &&
 
 echo
+echo #####################################################################
 echo System is now ready to resize your system.  A REBOOT IS REQUIRED NOW!
 echo "Press ENTER to reboot : \c"
 read aok

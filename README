@@ -5,12 +5,16 @@
 # Title:     rpi-wiggle
 # Author:    Kevin Reed (Dweeber)
 #            dweeber.dweebs@gmail.com
-# Credits:   jojopi on Raspberry Pi Forum who provided sample code
-#            
 # Project:   Raspberry Pi Stuff
-# Copyright: Released to the Public Domain
-# Status:    THIS IS EXPERIMENTAL USE AT YOUR OWN RISK
-#            THIS IS NOT A WORKING SCRIPT AT THIS TIME!
+#
+# Credits:   jojopi on Raspberry Pi Forum who provided sample code
+#            MrEngman on Raspberry Pi Forum for testing
+#            Examples from http://github.com/asb/raspi-config
+#
+# Copyright: Copyright (c) 2012 Kevin Reed <kreed@tnet.com>
+#            https://github.com/dweeber/rpiwiggle
+#
+# Status:    RELEASED
 #
 ####################################################################
 
@@ -44,31 +48,30 @@ When done, you will have used the full SDCard but be a little
 shorter thus allowing an image to be made and successful transfer
 to other like sized SDcards.
 
-####################################################################
-                  SCRIPT IS IN BETA TESTING NOW
-####################################################################
-
 HISTORY:
 
-2012-09-14 Released to a few for testing and feedback
-2012-09-14 Added remaining sections of script.  Ready to test
-2012-09-10 Updated Readme file
-2012-09-09 Setup Repository and basic script
+2012-09-15 1.0 Initial Release
+2012-09-15 0.1 Changed Default run levels in resize2fs_once script
+2012-09-14 0.1 Released to a few for testing and feedback
+2012-09-14 0.1 Added remaining sections of script.  Ready to test
+2012-09-10 0.1 Updated Readme file
+2012-09-09 0.1 Setup Repository and basic script
 
 KNOWN ISSUES:
 
-When run, the script will output the following errors:
-
-update-rc.d: using dependency based boot sequencing
-update-rc.d: warning: default start runlevel arguments (2 3 4 5) do 
-not match resize2fs_once Default-Start values (2 3 4 5 S)
-update-rc.d: warning: default stop runlevel arguments (0 1 6) do not 
-match resize2fs_once Default-Stop values (none)
-
-These errors do not affect the running of the script.  Not sure how 
-to suppress them
-
-WHY WIGGLE?
+Reported
+========== =======================================================
+2012-09-15 If run on original Debian squeezy, the script will 
+           fail with an error like:
+           The filesystem is already XX blocks long. Nothing to do!
+            
+           This is because there is physical swap partion after the
+           root partition which gets in the say of the expansion.
+                  
+           Script was designed for use with Debian Wheezy so this
+           should not be an issue if used as intended.
+           
+WHY THE NAME WIGGLE?
 
 Expands to the size of the SDcard but has some wiggle room left so 
 that if you make an image, it can be saved to a like sized SDCard 
