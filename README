@@ -50,6 +50,7 @@ to other like sized SDcards.
 
 HISTORY:
 
+2012-09-24 1.1 Increased reduction from 1024 to 1536
 2012-09-15 1.0 Initial Release
 2012-09-15 0.1 Changed Default run levels in resize2fs_once script
 2012-09-14 0.1 Released to a few for testing and feedback
