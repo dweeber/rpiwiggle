@@ -35,7 +35,7 @@
 # START OF SCRIPT
 ###################################################################
 PROGRAM="rpi-wiggle"
-VERSION="v1.0 2012-09-15"
+VERSION="v1.1 2012-09-24"
 ###################################################################
 if [ $(id -u) -ne 0 ]; then
   printf "Script must be run as root. Try 'sudo ./rpi-wiggle'\n"
@@ -45,7 +45,7 @@ fi
 DISK_SIZE="$(($(sudo blockdev --getsz /dev/mmcblk0)/2048/925))"
 PART_START="$(sudo parted /dev/mmcblk0 -ms unit s p |grep "^2" |cut -f2 -d:)"
 [ "$PART_START" ] || exit 1
-PART_END="$(((DISK_SIZE*925*2048-1)-1024))"
+PART_END="$(((DISK_SIZE*925*2048-1)-1536))"
 ###################################################################
 # Display some Stuff...
 ###################################################################
