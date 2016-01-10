@@ -104,11 +104,8 @@ EOF
 echo
 echo #####################################################################
 echo System is now ready to resize your system.  A REBOOT IS REQUIRED NOW!
-echo REBOOTING....
+echo Syncing....
 sync
-reboot
-echo
-echo Script Complete...
 
 ###################################################################
 # END OF SCRIPT
