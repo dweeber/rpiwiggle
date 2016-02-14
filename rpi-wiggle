@@ -2,17 +2,20 @@
 ###################################################################
 # A Project of TNET Services, Inc
 #
-# Title:     rpi-wiggle
-# Author:    Kevin Reed (Dweeber)
-#            dweeber.dweebs@gmail.com
-# Project:   Raspberry Pi Stuff
+# Title:       rpi-wiggle
+# Author:      Kevin Reed (Dweeber)
+#              dweeber.dweebs@gmail.com
+
+# Extended By: Devonte Emokpae
+#              devo.tox.89@gmail.com
+# Project:     Raspberry Pi Stuff
 #
-# Credits:   jojopi on Raspberry Pi Forum who provided sample code
-#            MrEngman on Raspberry Pi Forum for testing
-#            Examples from http://github.com/asb/raspi-config
+# Credits:     jojopi on Raspberry Pi Forum who provided sample code
+#              MrEngman on Raspberry Pi Forum for testing
+#              Examples from http://github.com/asb/raspi-config
 #
-# Copyright: Copyright (c) 2012 Kevin Reed <kreed@tnet.com>
-#            https://github.com/dweeber/rpiwiggle
+# Copyright:   Copyright (c) 2012 Kevin Reed <kreed@tnet.com>
+#              https://github.com/dweeber/rpiwiggle
 #
 # Purpose:
 # This is a simple script which looks at the current disk that is
@@ -35,17 +38,18 @@
 # START OF SCRIPT
 ###################################################################
 PROGRAM="rpi-wiggle"
-VERSION="v1.2 2015-01-10"
+VERSION="v1.3 2016-02-14"
 ###################################################################
 if [ $(id -u) -ne 0 ]; then
   printf "Script must be run as root. Try 'sudo ./rpi-wiggle'\n"
   exit 1
 fi
 ###################################################################
-DISK_SIZE="$(($(sudo blockdev --getsz /dev/mmcblk0)/2048/925))"
+DISK_SIZE="$(( $(sudo blockdev --getsz /dev/mmcblk0)/2048/925 ))"
 PART_START="$(sudo parted /dev/mmcblk0 -ms unit s p | grep "^2" | cut -f2 -d: | sed 's/[^0-9]*//g')"
+WIGGLE_ROOM=1536 # Change here to set the amount of wiggle room desired - 102400 = 100MB
 [ "$PART_START" ] || exit 1
-PART_END="$(((DISK_SIZE*925*2048-1)-1536))"
+PART_END="$(( (DISK_SIZE * 925 * 2048 - 1) - WIGGLE_ROOM ))"
 ###################################################################
 # Display some Stuff...
 ###################################################################
